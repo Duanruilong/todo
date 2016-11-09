@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+	<title>todo</title>
+	<link rel="stylesheet" href="css/iconfont.css">
+	<style>
+	body{
+	background: #444;
+	padding: 0;
+	margin: 0;
+	font-family: "Helevetica ",sans-serif;
+	/*font-size: 16px;*/
+	}
+header{
+	font-family:"Helevetica ",sans-serif;
+	width: 100%;
+	height: 50rem;
+	background:#00160d 
+}
+ul,li{padding: 0;margin: 0}
+.top{
+	width: 100%;height: 100%;
+	margin: 0 auto;
+}
+.top label{
+	color: #03c874;
+	font-size: 44px;
+	text-align: center;
+	line-height: 50rem;
+	float: left;
+}
+.top input{
+	width: 38rem;
+	/*height: 30px;*/
+	background: #013c23;
+	color: #03d57b;
+	font-size: 20px;
+	text-indent: 10px;
+	float: right;
+	margin-top: 10px;
+	/*margin-right: 50px;*/
+	border:1px solid #03c874;
+	box-shadow: 0 1px 0 rgba(255,255,255,0.24), 0 1px 6px rgba(0,0,0,0.45) inset;
+	border-radius: 5px;
+	outline: none;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+
+section{width: 80rem;
+	height: auto;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-top: 40px;
+}
+section .title{width: 95%;height: auto; overflow: hidden;margin: 30px auto}
+.title h2{float: left;color: #03d57b;padding: 0;margin:0}
+.title span{
+		display: block;
+		width: 20px;
+		height: 25px;
+		border-radius: 50%;
+		background:#013c23;
+		color: #09d503;
+		float:right;
+		text-align: center;
+		line-height: 25px;
+		font-size: 15px;
+		font-weight: bolder;
+}
+
+.nowlist,.overlist{
+	position: relative;
+	width: 600px;
+	height: 35px;
+	margin: 0 auto;
+	background: #013c23;
+	color: #03c874;
+	line-height: 35px;
+	padding: 0 50px;
+	border-left: 5px solid #09d503;
+	box-shadow: 0 1px 2px #03d57b;
+	border-radius: 5px;
+	margin-bottom: 12px;
+}
+.nowlist input,.overlist input{
+	position: absolute;
+	left: 12px;
+	width: 22px;height: 22px;
+	cursor: pointer;
+	margin: 6px;
+	border:none;
+	box-shadow:  0 0px 7px #09d503, 0 0 5px #03c874 inset;
+}
+.nowlist i,.overlist i{
+	color: #09d503;
+	width: 15px;height: 15px;
+	float: right;
+	cursor: pointer;
+	position: absolute;
+	top: 2px;
+	right: 20px;
+}
+.overlist i{color:#03d57b }
+.clead{
+	width: 50px;
+	height: 50px;
+	margin: 30px auto;
+	text-decoration: none;
+	color: #09d503;
+	cursor: pointer;
+}
+.clead i{
+	color: #09d503;
+	font-size: 30px;
+}
+
+/*@media screen and (max-width: 620px) {
+	.top{width:400px;}
+	.top input{width: 200px;}
+	section{width: 400px;}
+	.now div,.over div{
+	width: 400px;}
+	.nowlist,.overlist{
+		width: 300px;
+	}
+	.clead{
+
+	}
+}
+@media screen and (min-width: 620px) {
+	.top{width: 800px;}
+}
+*/
+
+	
+	</style>
+</head>
+<body>
+	<header>
+		<ul class="top">
+			<label for="title">ToDoo</label>
+			<input type="text" id="suo" placeholder="添加ToDo">
+		</ul>
+	</header>
+	<section>
+		<ul class="title">
+			<h2>正在进行</h2><span class="nownum">1</span>
+		</ul>
+		<ul class="now">
+		</ul>
+		<ul class="title">
+			<h2>已经完成</h2><span class="overnum">1</span>
+		</ul>
+		<ul class="over">
+		</ul>
+	<div href="" class="clead"><i class=" iconfont">&#xe6dc;</i></div>
+	</section>
+	<script >
+		var inputBtn=document.querySelector(".top input")
+		var nowlist=document.querySelector(".now ")
+		var overlist=document.querySelector(".over ")
+		var nownums=document.querySelector(".title .nownum")
+		var overnums=document.querySelector(".title .overnum")
+		var clead=document.querySelector(".clead")
+
+		inputBtn.onkeydown=function(e){
+				if (e.keyCode==13) {
+					if (this.value=="") {
+						return
+					}else{
+					 var title=this.value;
+					 var data =getData();
+					 data.push({"title":title,"done":"false"})
+					 saveData(data);
+					 this.value="";
+					 render();
+					}
+				};
+			}
+
+		function getData(){
+			var d = localStorage.getItem('todo')
+			if(d!=null){
+				return d ==null?[]:JSON.parse(d);
+			 }else return [];
+
+		}
+		function saveData(data){
+			localStorage.setItem('todo',JSON.stringify(data))
+		}
+		function changeData(i,key,val){
+			var data = getData();
+			data[i][key]=val;
+			saveData(data);
+			render();
+		}
+		function delData(i){
+			var data = getData();
+			data.splice(i,1);
+			saveData(data);
+			render()
+		}
+
+		clead.onclick=function(){
+			localStorage.clear();
+			render()
+		}
+
+
+		render()
+		function render(){
+			var nowStr="";
+			var overStr="";
+			var nowNum=0;
+			var overNum=0;
+			var todo=getData();
+			for (var i = 0; i < todo.length; i++) {
+				if (todo[i].done=="true") {
+					overNum++;
+					overStr+='<ul class="nowlist"><input type="checkbox" onchange=changeData('+i+',"done","false")><div class="text" contenteditable onblur=changeData('+i+',"title",this.innerHTML)>'+todo[i].title+'</div><i class="iconfont" style="color:#03d57b" onclick=delData('+i+')>&#xe614;</i></ul>'
+				}else{
+					nowNum++;
+					nowStr+='<ul class="nowlist"><input type="checkbox" onchange=changeData('+i+',"done","true")><div class="text" contenteditable onblur=changeData('+i+',"title",this.innerHTML)>'+todo[i].title+'</div><i class="iconfont" onclick=delData('+i+')>&#xe614;</i></ul>'
+				}
+			}
+			nownums.innerHTML=nowNum;
+			overnums.innerHTML=overNum;
+			nowlist.innerHTML=nowStr;
+			overlist.innerHTML=overStr;
+		}
+
+	</script>
+</body>
+</html>

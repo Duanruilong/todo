@@ -1,0 +1,110 @@
+body{
+	background: #444;
+	padding: 0;
+	margin: 0;
+	font-family: "Helevetica Neue",Arial;
+	font-size: 16px;
+}
+header{
+	font-family: "Helevetica Neue",Arial,'微软雅黑';
+	width: 100%;
+	height: 50px;
+	background:#00160d 
+}
+ul,li{padding: 0;margin: 0}
+.top{
+	width: 800px;height: 100%;
+	margin: 0 auto;
+}
+.top label{
+	color: #03c874;
+	font-size: 44px;
+	text-align: center;
+	line-height: 50px;
+	float: left;
+}
+.top input{
+	width: 380px;
+	height: 30px;
+	background: #013c23;
+	color: #03d57b;
+	font-size: 20px;
+	text-indent: 10px;
+	float: right;
+	margin-top: 10px;
+	/*margin-right: 50px;*/
+	border:1px solid #03c874;
+	box-shadow: 0 1px 0 rgba(255,255,255,0.24), 0 1px 6px rgba(0,0,0,0.45) inset;
+	border-radius: 5px;
+	outline: none;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+
+section{width: 800px;
+	height: auto;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-top: 40px;
+}
+section .title{width: 95%;height: auto; overflow: hidden;margin: 30px auto}
+.title h2{float: left;color: #03d57b;padding: 0;margin:0}
+.title span{
+		display: block;
+		width: 20px;
+		height: 25px;
+		border-radius: 50%;
+		background:#013c23;
+		color: #09d503;
+		float:right;
+		text-align: center;
+		line-height: 25px;
+		font-size: 15px;
+		font-weight: bolder;
+}
+
+.nowlist,.overlist{
+	position: relative;
+	width: 600px;
+	height: 35px;
+	margin: 0 auto;
+	background: #013c23;
+	color: #03c874;
+	line-height: 35px;
+	padding: 0 50px;
+	border-left: 5px solid #09d503;
+	box-shadow: 0 1px 2px #03d57b;
+	border-radius: 5px;
+	margin-bottom: 12px;
+}
+.nowlist input,.overlist input{
+	position: absolute;
+	left: 12px;
+	width: 22px;height: 22px;
+	cursor: pointer;
+	margin: 6px;
+}
+.nowlist i,.overlist i{
+	color: #09d503;
+	width: 15px;height: 15px;
+	float: right;
+	cursor: pointer;
+	position: absolute;
+	top: 2px;
+	right: 20px;
+}
+.overlist i{color:#03d57b }
+.clead{
+	text-decoration: none;
+	color: #09d503
+}
+
+
+
+
+
+
+
+
+@media screen and (max-device-width: 620px) {".top"{width:96%;padding:0 2%;}}
+@media screen and (min-width: 620px) {".top"{width:600px;padding:0 10px;}}
+
